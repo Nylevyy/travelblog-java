@@ -1,0 +1,188 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "0",
+        "author": "Nylevyy",
+        "preConditions": [
+          {
+            "onFail": "CONTINUE",
+            "not": {
+              "tableExists": {
+                "tableName": "userdata"
+              }
+            }
+          }
+        ],
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "userdata",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "UUID",
+                    "defaultValueComputed": "gen_random_uuid()",
+                    "constraints": {
+                      "nullable": false,
+                      "primaryKey": true,
+                      "updatable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "username",
+                    "type": "VARCHAR(255)",
+                    "constraints": {
+                      "unique": true,
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "password",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_at",
+                    "type": "TIMESTAMP",
+                    "defaultValueComputed": "now()",
+                    "constraints": {
+                      "nullable": false,
+                      "updatable": false
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "1",
+        "author": "Nylevyy",
+        "preConditions": [
+          {
+            "onFail": "CONTINUE",
+            "not": {
+              "tableExists": {
+                "tableName": "article"
+              }
+            }
+          }
+        ],
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "article",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "UUID",
+                    "defaultValueComputed": "gen_random_uuid()",
+                    "constraints": {
+                      "nullable": false,
+                      "primaryKey": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "title",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "description",
+                    "type": "LONGTEXT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "location",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "is_important",
+                    "type": "BOOLEAN"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "date",
+                    "type": "TIMESTAMP"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_at",
+                    "type": "TIMESTAMP",
+                    "defaultValueComputed": "now()",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "user_id",
+                    "type": "UUID",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2",
+        "author": "Nylevyy",
+        "preConditions": [
+          {
+            "onFail": "HALT",
+            "and": [
+              {
+                "tableExists": {
+                  "tableName": "article"
+                }
+              },
+              {
+                "tableExists": {
+                  "tableName": "userdata"
+                }
+              }
+            ]
+          }
+        ],
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "user_id",
+              "baseTableName": "article",
+              "constraintName": "fk_article_userdata",
+              "referencedColumnNames": "id",
+              "referencedTableName": "userdata",
+              "onDelete": "CASCADE"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
