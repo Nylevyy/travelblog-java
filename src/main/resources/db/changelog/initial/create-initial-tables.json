@@ -9,7 +9,7 @@
             "onFail": "CONTINUE",
             "not": {
               "tableExists": {
-                "tableName": "userdata"
+                "tableName": "users"
               }
             }
           }
@@ -17,7 +17,7 @@
         "changes": [
           {
             "createTable": {
-              "tableName": "userdata",
+              "tableName": "users",
               "columns": [
                 {
                   "column": {
@@ -73,7 +73,7 @@
             "onFail": "CONTINUE",
             "not": {
               "tableExists": {
-                "tableName": "article"
+                "tableName": "articles"
               }
             }
           }
@@ -81,7 +81,7 @@
         "changes": [
           {
             "createTable": {
-              "tableName": "article",
+              "tableName": "articles",
               "columns": [
                 {
                   "column": {
@@ -159,12 +159,12 @@
             "and": [
               {
                 "tableExists": {
-                  "tableName": "article"
+                  "tableName": "articles"
                 }
               },
               {
                 "tableExists": {
-                  "tableName": "userdata"
+                  "tableName": "users"
                 }
               }
             ]
@@ -174,10 +174,10 @@
           {
             "addForeignKeyConstraint": {
               "baseColumnNames": "user_id",
-              "baseTableName": "article",
-              "constraintName": "fk_article_userdata",
+              "baseTableName": "articles",
+              "constraintName": "fk_articles_users",
               "referencedColumnNames": "id",
-              "referencedTableName": "userdata",
+              "referencedTableName": "users",
               "onDelete": "CASCADE"
             }
           }
