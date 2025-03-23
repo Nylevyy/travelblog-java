@@ -1,0 +1,10 @@
+{
+  "databaseChangeLog": [
+    {
+      "include": {
+        "file": "create-initial-tables.json",
+        "relativeToChangelogFile": true
+      }
+    }
+  ]
+}
