@@ -1,4 +1,4 @@
-package ru.travelblog.controllers.dto;
+package ru.travelblog.controllers.articles.dto;
 
 import ru.travelblog.dto.ArticleDto;
 

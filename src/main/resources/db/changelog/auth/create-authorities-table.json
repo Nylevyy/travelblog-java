@@ -1,0 +1,149 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "auth-0",
+        "author": "Nylevyy",
+        "preConditions": [
+          {
+            "onFail": "CONTINUE",
+            "not": {
+              "columnExists": {
+                "tableName": "users",
+                "columnName": "enabled"
+              }
+            }
+          }
+        ],
+        "changes": [
+          {
+            "addColumn": {
+              "tableName": "users",
+              "columns": [
+                {
+                  "column": {
+                    "name": "enabled",
+                    "type": "BOOLEAN"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "auth-1",
+        "author": "Nylevyy",
+        "preConditions": [
+          {
+            "onFail": "CONTINUE",
+            "not": {
+              "tableExists": {
+                "tableName": "authorities"
+              }
+            }
+          }
+        ],
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "authorities",
+              "columns": [
+                {
+                  "column": {
+                    "name": "username",
+                    "type": "VARCHAR(255)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "authority",
+                    "type": "VARCHAR(255)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "auth-2",
+        "author": "Nylevyy",
+        "preConditions": [
+          {
+            "onFail": "HALT",
+            "and": [
+              {
+                "tableExists": {
+                  "tableName": "users"
+                }
+              },
+              {
+                "tableExists": {
+                  "tableName": "authorities"
+                }
+              }
+            ]
+          }
+        ],
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "username",
+              "baseTableName": "authorities",
+              "constraintName": "fk_authorities_users",
+              "referencedColumnNames": "username",
+              "referencedTableName": "users",
+              "onDelete": "CASCADE"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "auth-3",
+        "author": "Nylevyy",
+        "preConditions": [
+          {
+            "onFail": "HALT",
+            "tableExists": {
+              "tableName": "authorities"
+            }
+          }
+        ],
+        "changes": [
+          {
+            "createIndex": {
+              "tableName": "authorities",
+              "unique": true,
+              "indexName": "ix_auth_username",
+              "columns": [
+                {
+                  "column": {
+                    "name": "authority"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "username"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
