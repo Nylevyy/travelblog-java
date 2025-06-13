@@ -1,4 +1,4 @@
-package ru.travelblog.controllers.articles;
+package ru.travelblog.controllers;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ru.travelblog.controllers.articles.dto.GetArticlesResponse;
-import ru.travelblog.controllers.articles.dto.SaveArticleRequest;
-import ru.travelblog.controllers.articles.dto.SaveArticleResponse;
-import ru.travelblog.controllers.dto.ErrorResponseDto;
-import ru.travelblog.controllers.dto.HttpResponseDto;
 import ru.travelblog.domain.Article;
 import ru.travelblog.dto.ArticleDto;
+import ru.travelblog.dto.ErrorResponseDto;
+import ru.travelblog.dto.GetArticlesResponse;
+import ru.travelblog.dto.HttpResponseDto;
+import ru.travelblog.dto.SaveArticleRequest;
+import ru.travelblog.dto.SaveArticleResponse;
 import ru.travelblog.services.ArticleService;
 import ru.travelblog.services.UserService;
 

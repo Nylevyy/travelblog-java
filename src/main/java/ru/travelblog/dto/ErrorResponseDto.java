@@ -1,4 +1,4 @@
-package ru.travelblog.controllers.dto;
+package ru.travelblog.dto;
 
 import org.springframework.http.HttpStatus;
 

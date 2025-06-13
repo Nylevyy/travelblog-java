@@ -1,4 +1,4 @@
-package ru.travelblog.controllers.dto;
+package ru.travelblog.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
