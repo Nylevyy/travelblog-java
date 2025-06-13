@@ -2,13 +2,13 @@
   "databaseChangeLog": [
     {
       "include": {
-        "file": "./initial/changelog.json",
+        "file": "create-authorities-table.json",
         "relativeToChangelogFile": true
       }
     },
     {
       "include": {
-        "file": "./auth/changelog.json",
+        "file": "alter-user-table-add-role.json",
         "relativeToChangelogFile": true
       }
     }

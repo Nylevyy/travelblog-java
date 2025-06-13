@@ -1,0 +1,67 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "roles-1",
+        "author": "Nylevyy",
+        "preConditions": [
+          {
+            "onFail": "CONTINUE",
+            "not": {
+              "columnExists": {
+                "tableName": "users",
+                "columnName": "role"
+              }
+            }
+          }
+        ],
+        "changes": [
+          {
+            "addColumn": {
+              "tableName": "users",
+              "columns": [
+                {
+                  "column": {
+                    "name": "role",
+                    "type": "VARCHAR(32)"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "roles-2",
+        "author": "Nylevyy",
+        "preConditions": [
+          {
+            "onFail": "CONTINUE",
+            "columnExists": {
+              "tableName": "users",
+              "columnName": "role"
+            }
+          }
+        ],
+        "changes": [
+          {
+            "update": {
+              "tableName": "users",
+              "columns": [
+                {
+                  "column": {
+                    "name": "role",
+                    "value": "ROLE_USER"
+                  }
+                }
+              ],
+              "where": "role is NULL"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
