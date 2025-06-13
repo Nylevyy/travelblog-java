@@ -1,0 +1,142 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "app-conf-1",
+        "author": "Nylevyy",
+        "preConditions": [
+          {
+            "onFail": "CONTINUE",
+            "not": {
+              "tableExists": {
+                "tableName": "application_config"
+              }
+            }
+          }
+        ],
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "application_config",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "UUID",
+                    "defaultValueComputed": "gen_random_uuid()",
+                    "constraints": {
+                      "nullable": false,
+                      "primaryKey": true,
+                      "updatable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "user_id",
+                    "type": "UUID",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_at",
+                    "type": "TIMESTAMP",
+                    "defaultValueComputed": "now()",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "user_id",
+              "baseTableName": "application_config",
+              "constraintName": "fk_application_config_users",
+              "referencedColumnNames": "id",
+              "referencedTableName": "users",
+              "onDelete": "CASCADE"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "app-conf-2",
+        "author": "Nylevyy",
+        "preConditions": [
+          {
+            "onFail": "CONTINUE",
+            "not": {
+              "tableExists": {
+                "tableName": "blog_config"
+              }
+            }
+          }
+        ],
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "blog_config",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "UUID",
+                    "defaultValueComputed": "gen_random_uuid()",
+                    "constraints": {
+                      "nullable": false,
+                      "primaryKey": true,
+                      "updatable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "title",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "application_config_id",
+                    "type": "UUID",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_at",
+                    "type": "TIMESTAMP",
+                    "defaultValueComputed": "now()",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "application_config_id",
+              "baseTableName": "blog_config",
+              "constraintName": "fk_blog_config_application_config",
+              "referencedColumnNames": "id",
+              "referencedTableName": "application_config",
+              "onDelete": "CASCADE"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
