@@ -1,0 +1,10 @@
+{
+  "databaseChangeLog": [
+    {
+      "include": {
+        "file": "add-application-and-blog-config-table.json",
+        "relativeToChangelogFile": true
+      }
+    }
+  ]
+}
