@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import ru.travelblog.domain.Article;
@@ -41,6 +42,32 @@ public class ArticleService {
     e.setUser(user.toEntity());
     e = articleRepository.saveAndFlush(e);
     return Article.fromEntity(e, user);
+  }
+
+  public Article updateArticleForUser(Article article, UUID userId) throws Exception {
+    User user = getUserById(userId);
+    article.setUser(user);
+    UUID articleId = article.getId();
+
+    Boolean doesArticleExists = articleRepository.existsByIdAndUserId(articleId, userId);
+
+    if (!doesArticleExists) {
+      throw new Exception(String.format("У пользователя с id %s нет статьи с id %s", userId, articleId));
+    }
+
+    ArticleEntity updatedArticle = articleRepository.saveAndFlush(article.toEntity());
+    return Article.fromEntity(updatedArticle, user);
+  }
+
+  @Transactional
+  public void deleteArticleForUser(UUID articleId, UUID userId) throws Exception {
+    Boolean doesArticleExists = articleRepository.existsByIdAndUserId(articleId, userId);
+
+    if (!doesArticleExists) {
+      throw new Exception(String.format("У пользователя с id %s нет статьи с id %s", userId, articleId));
+    }
+
+    articleRepository.deleteByIdAndUserId(articleId, userId);
   }
 
   private User getUserById(UUID userId) throws Exception {
