@@ -75,7 +75,7 @@ public class UserConfigController {
             BlogConfig updatedBlogConfig = appConfigService.saveUserBlogConfig(userId, blogConfig);
 
             UpdateBlogConfigResponse responseData = new UpdateBlogConfigResponse();
-            responseData.setBlogConfigDto(mapper.map(updatedBlogConfig, BlogConfigDto.class));
+            responseData.setBlogConfig(mapper.map(updatedBlogConfig, BlogConfigDto.class));
             response.setData(responseData);
             return ResponseEntity.ok(response);
         } catch (Exception e) {

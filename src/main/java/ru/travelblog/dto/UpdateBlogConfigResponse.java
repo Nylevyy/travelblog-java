@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UpdateBlogConfigResponse {
-  private BlogConfigDto blogConfigDto;
+  private BlogConfigDto blogConfig;
 }
