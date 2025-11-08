@@ -1,0 +1,10 @@
+{
+  "databaseChangeLog": [
+    {
+      "include": {
+        "file": "add-refresh-token-table.json",
+        "relativeToChangelogFile": true
+      }
+    }
+  ]
+}

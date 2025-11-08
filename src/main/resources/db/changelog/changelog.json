@@ -17,6 +17,12 @@
         "file": "./application-config/changelog.json",
         "relativeToChangelogFile": true
       }
+    },
+    {
+      "include": {
+        "file": "./0.0.1/changelog.json",
+        "relativeToChangelogFile": true
+      }
     }
   ]
 }
